@@ -1,0 +1,82 @@
+/* ===== TIPOGRAFÍA ===== */
+:root{
+  --fs-title:clamp(25px, 1.2vw + 18px, 34px);
+  --fs-subtitle:clamp(18px, .5vw + 15px, 22px);
+  --fs-cardtitle:clamp(15.5px, .2vw + 14.5px, 17.5px);
+  --fs-body:clamp(14px, .2vw + 13px, 15.5px);
+  --fs-text:clamp(13.5px, .15vw + 12.5px, 14.5px);
+  --fs-meta:clamp(11.5px, .1vw + 11px, 12.5px);
+  --fs-ui:clamp(13px, .1vw + 12.5px, 14px);
+  --lh-body:1.7;
+}
+
+/* ----- Títulos ----- */
+.section-title,.dashboard-hero h1,.profile-card h1,.auth-card h1,.neuro-detail-top h1,.donate-card h1,.admin-form h1{font-size:var(--fs-title);line-height:1.15}
+.pill-title{font-size:var(--fs-title);line-height:1.2;padding:8px 22px}
+.admin-db .section-title{font-size:var(--fs-title)}
+
+/* ----- Subtítulos ----- */
+.detail-panel h2,.neuro-detail-page>section h2,.about-card h2,.about-bottom h2,.guide-search h2,.donation-copy h2,
+.admin-panel h2,.favorites-preview h2,.profile-section h2,.modal h2,.question-text{font-size:var(--fs-subtitle);line-height:1.25}
+
+/* ----- Títulos de tarjetas ----- */
+.guide-card h3,.neuro-body h3,.quick-card h3,.platform-grid h3,.public-neuro-card h3,.feature-card h3,.eval-tile h3,
+.admin-eval-card h3,.assistant-result h4,.banner h2{font-size:var(--fs-cardtitle);line-height:1.3}
+.detail-panel h4,.modal h4,.rating-box h4,.comments-box h4{font-size:var(--fs-body);line-height:1.4}
+.eval-tile h3{font-size:var(--fs-cardtitle)}
+
+/* ----- Texto normal de información ----- */
+body{font-size:var(--fs-body)}
+.section-text,.hero p,.dashboard-hero p,.banner p,.about-card p,.about-bottom>p,.about-preview-side p,.donation-copy p,
+.detail-panel p,.detail-panel li,.neuro-detail-page p,.neuro-detail-page li,.myth-item p,.neuro-suggestions li,
+.neuro-suggestions .section-text,.modal p,.modal li,.profile-value,.eval-card p,.result-box p{font-size:var(--fs-body);line-height:var(--lh-body)}
+.hero p{max-width:600px}
+.myth-item strong{font-size:var(--fs-text)}
+.about-card p{font-size:var(--fs-body)}
+
+/* ----- Texto de tarjetas y avisos ----- */
+.guide-card p,.neuro-body p,.quick-card p,.platform-grid p,.public-neuro-card p,.feature-card p,.eval-tile p,.admin-eval-card p,
+.platform-features span,.assistant-result p,.type-hint,.disclaimer-note p,.guide-warning p,.alert-error,.form-result,
+.footer small,.option,.comment p,.comment-text,.comment-form textarea,.admin-table,.admin-options,.hard-list{font-size:var(--fs-text);line-height:1.6}
+.guide-card p,.neuro-body p,.quick-card p,.feature-card p{min-height:0}
+.platform-features b,.disclaimer-note strong,.guide-warning strong{font-size:var(--fs-text)}
+.disclaimer-note strong,.guide-warning strong{letter-spacing:0}
+
+/* ----- Etiquetas y datos  ----- */
+.tag,.chip,.eyebrow,.guide-rating-preview,.cell-sub,.admin-title small,.kpi span,.kpi .kpi-split-line,.question-number,
+.history-item span,.comment-head,.comment-head small,.comment-actions small,.hbar,.hbar-label small,.legend,.field label,
+.donation-note,.donation-error,.donation-custom label,.donation-currency,.filter-grid label span,.admin-table th,
+.platform-number,.rating-summary,.rating-box small,.guide-search small,.neuro-image-placeholder small{font-size:var(--fs-meta)}
+.eyebrow{letter-spacing:1.6px}
+.check,.check-group legend{font-size:var(--fs-text)}
+.admin-table th{letter-spacing:.3px}
+.kpi b{font-size:clamp(24px,1vw + 19px,29px)}
+
+/* ----- Botones, menú y formularios ----- */
+.btn{font-size:var(--fs-ui)}
+.btn-small{font-size:calc(var(--fs-ui) - 1px)}
+.nav-links button{font-size:11px}
+.mobile-nav button{font-size:var(--fs-ui)}
+.brand{font-size:clamp(15px,.3vw + 14px,17px)}
+.lang-switch button{font-size:var(--fs-meta)}
+input,select,textarea,.search-input{font-size:var(--fs-text)}
+.toast{font-size:var(--fs-text)}
+.donation-total{font-size:var(--fs-text)}
+
+/* ----- Chatbot ----- */
+.mb-msg{font-size:var(--fs-text)}
+.menty-chips button{font-size:var(--fs-meta)}
+.menty-aviso,.menty-head small{font-size:var(--fs-meta)}
+
+/* ----- Tarjetas ----- */
+.guide-card{display:flex;flex-direction:column}
+.guide-card p{flex:1 1 auto}
+.guide-card-actions{margin-top:auto;padding-top:4px}
+.neuro-card{display:flex;flex-direction:column}
+.neuro-body{display:flex;flex-direction:column;flex:1}
+.neuro-body p{flex:1 1 auto}
+.neuro-body .btn{align-self:flex-start;margin-top:6px}
+.public-neuro-card p{flex:1 1 auto}
+
+/* ----- Teléfonos ----- */
+@media(max-width:760px){input,select,textarea,.search-input{font-size:16px}}
