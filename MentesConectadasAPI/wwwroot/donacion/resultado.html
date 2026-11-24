@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#172333">
+<link rel="icon" href="../assets/img/icon-192.png" type="image/png">
+<script>
+  
+  try { if (JSON.parse(localStorage.getItem('mc_theme')) === 'light') document.documentElement.setAttribute('data-theme', 'light'); } catch (e) {}
+</script>
+<link rel="stylesheet" href="../css/styles.css">
+<link rel="stylesheet" href="../css/responsive.css">
+<title>Resultado de tu donación · Mentes Conectadas</title>
+</head>
+<body>
+<header class="header"><div class="container nav">
+  <a class="brand" href="../index.html#inicio"><img src="../assets/img/logo.png" alt="Logo de Mentes Conectadas"><span>Mentes Conectadas</span></a>
+</div></header>
+
+<main class="auth-page">
+  <section class="auth-card donate-card donate-result" id="resultado" aria-live="polite">
+    <div class="donate-icon" id="icono" aria-hidden="true"></div>
+    <h1 id="titulo"></h1>
+    <p id="texto"></p>
+    <div class="modal-actions">
+      <a class="btn btn-primary" id="btn-inicio" href="../index.html#inicio"></a>
+      <a class="btn btn-outline" id="btn-reintentar" href="../index.html#donar" hidden></a>
+    </div>
+  </section>
+</main>
+
+<script>
+  //Resultados de la Donacion en español e Ingles 
+  const TEXTOS = {
+    es: {
+      inicio: 'Volver al inicio', reintentar: 'Intentar de nuevo',
+      confirmada: ['✓', 'ok', '¡Gracias por tu donación!', 'Tu pago fue aprobado. Tu aportación ayuda a mantener Mentes Conectadas y a seguir creando guías.'],
+      pendiente: ['…', '', 'Tu pago está pendiente', 'Mercado Pago aún no confirma el pago (por ejemplo, si elegiste OXXO o transferencia). Cuando se acredite, tu donación quedará confirmada. No necesitas volver a donar.'],
+      rechazada: ['!', 'bad', 'No se pudo completar el pago', 'Mercado Pago rechazó el pago. Puedes intentarlo de nuevo con otro medio de pago.'],
+      reembolsada: ['↺', '', 'Pago reembolsado', 'Este pago fue reembolsado por Mercado Pago.'],
+      cancelada: ['!', '', 'Donación no completada', 'Regresaste sin completar el pago, así que no se hizo ningún cargo.'],
+      error: ['!', 'bad', 'No pudimos confirmar tu pago', 'Si ya se hizo un cargo, revisa tu comprobante de Mercado Pago y contacta al equipo de Mentes Conectadas.']
+    },
+    en: {
+      inicio: 'Back to home', reintentar: 'Try again',
+      confirmada: ['✓', 'ok', 'Thank you for your donation!', 'Your payment was approved. Your contribution helps keep Mentes Conectadas running and creating guides.'],
+      pendiente: ['…', '', 'Your payment is pending', 'Mercado Pago has not confirmed the payment yet (for example, if you chose OXXO or a bank transfer). Once it is credited, your donation will be confirmed. You do not need to donate again.'],
+      rechazada: ['!', 'bad', 'The payment could not be completed', 'Mercado Pago rejected the payment. You can try again with another payment method.'],
+      reembolsada: ['↺', '', 'Payment refunded', 'This payment was refunded by Mercado Pago.'],
+      cancelada: ['!', '', 'Donation not completed', 'You came back without completing the payment, so no charge was made.'],
+      error: ['!', 'bad', 'We could not confirm your payment', 'If a charge was already made, check your Mercado Pago receipt and contact the Mentes Conectadas team.']
+    }
+  };
+
+  let lang = 'es';
+  try { lang = localStorage.getItem('mc_lang') === 'en' ? 'en' : 'es'; } catch (e) {}
+  document.documentElement.lang = lang === 'en' ? 'en' : 'es-MX';
+
+ 
+  let estado = new URLSearchParams(location.search).get('estado') || 'error';
+  if (estado === 'intencion') estado = 'error';
+  const T = TEXTOS[lang];
+  if (!T[estado] || typeof T[estado] === 'string') estado = 'error';
+
+  const [icono, clase, titulo, texto] = T[estado];
+  const el = document.getElementById('icono');
+  el.textContent = icono;
+  if (clase) el.classList.add(clase);
+  document.getElementById('titulo').textContent = titulo;
+  document.getElementById('texto').textContent = texto;
+  document.getElementById('btn-inicio').textContent = T.inicio;
+  const reintentar = document.getElementById('btn-reintentar');
+  reintentar.textContent = T.reintentar;
+  if (['rechazada', 'cancelada', 'error'].includes(estado)) reintentar.hidden = false;
+  document.title = titulo + ' · Mentes Conectadas';
+</script>
+</body>
+</html>
