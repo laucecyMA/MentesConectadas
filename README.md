@@ -39,9 +39,9 @@ MentesConectadasAPI.sln
 
 ## Credenciales de prueba
 | Rol | Correo | Contraseña |
-| Administrador | adminmentesconectadas@gmail.com | MentesConect123 |
-| Estudiante | estudiante.prueba@correo.com | Estudiante123 |
-| Docente | docente.prueba@correo.com | Docente123 |
+| Administrador | adminmentesconectadas@gmail.com | (Contraseña protegida) |
+| Estudiante | estudiante.prueba@correo.com | (Contraseña protegida) |
+| Docente | docente.prueba@correo.com | (Contraseña protegida) |
 
 ## Videos de las guías
 Cada guía lee su video desde la base de datos. Coloca los archivos .mp4 con estos nombres exactos:
