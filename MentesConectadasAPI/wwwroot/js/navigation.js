@@ -1,4 +1,5 @@
 // ===== NAVEGACIÓN =====
+import { cambioDeRuta } from './paginado.js';
 import { state } from './state.js';
 import { ASSISTANT_ENABLED, isAdmin, SHOW_ADMIN_STATS } from './config.js';
 import { themeButton } from './theme.js';
@@ -9,7 +10,7 @@ let renderer = () => {};
 export function setRenderer(fn) { renderer = fn; }
 export function refreshView() { renderer(); }
 
-export function go(route){state.route=route;location.hash=route;window.scrollTo({top:0,behavior:'instant'});renderer();}
+export function go(route){cambioDeRuta(state.route,route);state.route=route;location.hash=route;window.scrollTo({top:0,behavior:'instant'});renderer();}
 
 const AUTH_NAV = [
   

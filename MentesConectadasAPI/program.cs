@@ -37,6 +37,9 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddSingleton<AccesoSql>();
 
+// ----- CORREOS -----
+builder.Services.AddSingleton<EnvioCorreo>();
+
 // ----- DONACIONES -----
 builder.Services.AddHttpClient();
 builder.Services.AddSingleton<PagosDonacion>();
@@ -48,6 +51,19 @@ builder.Services.AddScoped<ChatbotIA>();
 
 builder.Services.AddRateLimiter(options =>
 {
+    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+
+    // Recuperar contraseña
+    options.AddPolicy("recuperacion", httpContext =>
+        RateLimitPartition.GetFixedWindowLimiter(
+            httpContext.Connection.RemoteIpAddress?.ToString() ?? "desconocida",
+            _ => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 5,
+                Window = TimeSpan.FromMinutes(10),
+                QueueLimit = 0
+            }));
+
     options.AddFixedWindowLimiter("chatbot", opt =>
     {
         opt.PermitLimit = 10;
@@ -73,7 +89,14 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseDefaultFiles();
-app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions
+{
+    OnPrepareResponse = ctx =>
+    {
+        if (ctx.Context.Request.Path.StartsWithSegments("/assets"))
+            ctx.Context.Response.Headers["Cache-Control"] = "public,max-age=604800";
+    }
+});
 
 app.UseCors("NuevaPolitica");
 app.UseRateLimiter();

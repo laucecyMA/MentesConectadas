@@ -358,7 +358,41 @@ export const UI_EN = {
   "Monto": "Amount",
   "Operación": "Transaction",
   "Tu navegador bloqueó la pestaña automática. Presiona «Abrir Mercado Pago de nuevo» para pagar en una pestaña nueva.": "Your browser blocked the automatic tab. Press “Open Mercado Pago again” to pay in a new tab.",
-  "La API no está actualizada: reiníciala para activar la confirmación automática. Se abrirá Mercado Pago en esta pestaña.": "The API is not up to date: restart it to enable automatic confirmation. Mercado Pago will open in this tab."
+  "La API no está actualizada: reiníciala para activar la confirmación automática. Se abrirá Mercado Pago en esta pestaña.": "The API is not up to date: restart it to enable automatic confirmation. Mercado Pago will open in this tab.",
+ "¿Olvidaste tu contraseña?": "Forgot your password?",
+ "Recuperar contraseña": "Reset password",
+ "Escribe el correo con el que te registraste y te enviaremos un enlace para crear una contraseña nueva.": "Enter the email you signed up with and we will send you a link to create a new password.",
+ "ENVIAR ENLACE": "SEND LINK",
+ "ENVIANDO...": "SENDING...",
+ "¿Ya la recordaste?": "Remembered it?",
+ "Escribe tu correo electrónico.": "Enter your email address.",
+ "Escribe un correo válido, por ejemplo nombre@correo.com.": "Enter a valid email, for example name@email.com.",
+ "Revisa tu correo": "Check your email",
+ "VOLVER A INICIAR SESIÓN": "BACK TO LOG IN",
+ "Crear nueva contraseña": "Create new password",
+ "Escribe la contraseña nueva de tu cuenta.": "Enter the new password for your account.",
+ "GUARDAR CONTRASEÑA": "SAVE PASSWORD",
+ "GUARDANDO...": "SAVING...",
+ "¿El enlace no funciona?": "Is the link not working?",
+ "SOLICITAR OTRO": "REQUEST ANOTHER",
+ "Escribe una contraseña.": "Enter a password.",
+ "Confirma tu contraseña.": "Confirm your password.",
+ "Contraseña actualizada": "Password updated",
+ "Tu contraseña se cambió correctamente. Ya puedes iniciar sesión con la nueva.": "Your password was changed successfully. You can now log in with the new one.",
+ "Tu cuenta se creó correctamente y ya iniciaste sesión. Te enviamos un correo de bienvenida; si no lo ves, revisa tu carpeta de spam.": "Your account was created successfully and you are now logged in. We sent you a welcome email; if you do not see it, check your spam folder.",
+ "Si el correo está registrado, te enviamos un mensaje con las instrucciones para cambiar tu contraseña. Revisa también tu carpeta de spam.": "If the email is registered, we sent you a message with instructions to change your password. Check your spam folder too.",
+ "El enlace no es válido o ya venció. Solicita uno nuevo desde «¿Olvidaste tu contraseña?».": "The link is not valid or has expired. Request a new one from \"Forgot your password?\".",
+ "El envío de correos no está disponible por el momento. Inténtalo más tarde.": "Sending emails is not available right now. Please try again later.",
+ "No se pudo procesar la solicitud. Inténtalo de nuevo en unos momentos.": "The request could not be processed. Please try again in a few moments.",
+ "No se pudo cambiar la contraseña. Inténtalo de nuevo en unos momentos.": "The password could not be changed. Please try again in a few moments.",
+ "Hiciste demasiados intentos. Espera unos minutos e inténtalo de nuevo.": "You made too many attempts. Wait a few minutes and try again.",
+ "Paginación de guías": "Guides pagination",
+ "Paginación de autoevaluaciones": "Self-assessments pagination",
+ "Página anterior": "Previous page",
+ "Página siguiente": "Next page",
+ "BUSCADOR DE AUTOEVALUACIONES": "SELF-ASSESSMENT SEARCH",
+ "Encuentra una autoevaluación": "Find a self-assessment",
+ "No encontramos autoevaluaciones con esos filtros.": "We did not find self-assessments with those filters.",
 };
 
 const plural = (n, uno, varios) => (String(n) === '1' ? uno : varios);
@@ -388,7 +422,11 @@ export const UI_PATTERNS = [
   [/^La cantidad mínima es \$(.+) MXN\.$/, (t, n) => `The minimum amount is $${n} MXN.`],
   [/^Gracias por querer apoyar Mentes Conectadas\. Elegiste \$(\d+) MXN, pero el pago en línea todavía no está habilitado, así que no se realizó ningún cargo\. Solo registramos tu interés en apoyar para saber cuánta gente quiere colaborar\.$/, (t, n) =>
     `Thank you for wanting to support Mentes Conectadas. You chose $${n} MXN, but online payment is not enabled yet, so no charge was made. We only record your interest in supporting so we know how many people want to contribute.`],
-    [/^(.*) Selecciona una guía para comenzar\.$/, (t, d) => `${d} Select a guide to get started.`]
+    [/^(.*) Selecciona una guía para comenzar\.$/, (t, d) => `${d} Select a guide to get started.`],
+    [/^Página (\d+) de (\d+)$/, (t, a, b) => `Page ${a} of ${b}`],
+    [/^Ir a la página (\d+)$/, (t, n) => `Go to page ${n}`],
+    [/^(\d+) guías?$/, (t, n) => `${n} ${Number(n) === 1 ? 'guide' : 'guides'}`],
+    [/^(\d+) autoevaluaci(?:ón|ones)$/, (t, n) => `${n} ${Number(n) === 1 ? 'self-assessment' : 'self-assessments'}`]
 
 ];
 

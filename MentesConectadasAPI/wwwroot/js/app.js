@@ -1,15 +1,18 @@
 // ===== PUNTO DE ENTRADA =====
 import { state, save, loadFavoritesForCurrentUser } from './state.js';
+import { normalizeUserType } from './config.js';
+import { crearSesionCompartida } from './sesion-tabs.js';
+import { cambioDeRuta } from './paginado.js';
 import { cargarCatalogo } from './catalogo.js';
 import { go } from './navigation.js';
 import { render } from './router.js';
 import { closeModal, showToast } from './ui.js';
-import { doLogin, doRegister, logout, showTypeHint, regLimpiarError } from './auth.js';
+import { doLogin, doRegister, logout, showTypeHint, regLimpiarError, doOlvide, doRestablecer, regError } from './auth.js';
 import { saveProfile } from './profile.js';
 import { filterNeuro } from './neuro.js';
-import { applyGuideFilters, clearGuideFilters, openGuide, setGuideRating } from './guides.js';
+import { applyGuideFilters, clearGuideFilters, goGuidePage, openGuide, setGuideRating } from './guides.js';
 import { toggleFavorite } from './favorites.js';
-import { startEvaluation, cancelEvaluation, selectAnswer, nextQuestion, previousQuestion, finishEvaluation } from './evaluations.js';
+import { startEvaluation, cancelEvaluation, selectAnswer, nextQuestion, previousQuestion, finishEvaluation, applyEvalFilters, clearEvalFilters, goEvalPage } from './evaluations.js';
 import { runAssistant } from './assistant.js';
 import { selectDonationAmount, startDonation, submitDonation, setCustomDonation, blockNonDigits, pasteDigits } from './donations.js';
 import { initTheme, toggleTheme } from './theme.js';
@@ -29,8 +32,9 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal()
 document.addEventListener('click', e => { if (e.target.classList?.contains('modal-backdrop')) closeModal(); });
 
 Object.assign(window, {
-  go, closeModal, doLogin, doRegister, regLimpiarError, logout, saveProfile, filterNeuro,
-  applyGuideFilters, clearGuideFilters, openGuide, setGuideRating, toggleFavorite,
+  go, closeModal, doLogin, doRegister, doOlvide, doRestablecer, regError, regLimpiarError, logout, saveProfile, filterNeuro,
+  applyGuideFilters, clearGuideFilters, goGuidePage, openGuide, setGuideRating, toggleFavorite,
+  applyEvalFilters, clearEvalFilters, goEvalPage,
   startEvaluation, cancelEvaluation, selectAnswer, nextQuestion, previousQuestion, finishEvaluation,
   runAssistant, selectDonationAmount, startDonation, submitDonation, setCustomDonation, blockNonDigits, pasteDigits,
   showTypeHint, toggleTheme,
@@ -46,13 +50,22 @@ Object.assign(window, {
 
 window.addEventListener('hashchange', () => {
   const route = location.hash.replace('#', '') || 'inicio';
-  if (route !== state.route) { state.route = route; render(); }
+  if (route !== state.route) { cambioDeRuta(state.route, route); state.route = route; render(); }
 });
 
 initTheme();
 initLang(render);
 initConexion();
 initMentyBot();
+
+
+const sesionCompartida = crearSesionCompartida({
+    obtenerUsuario: () => state.user,
+    aplicarUsuario: (u) => { state.user = { ...u, type: normalizeUserType(u.type) }; loadFavoritesForCurrentUser(); save(); },
+    almacen: localStorage
+});
+await sesionCompartida.adoptar();
+sesionCompartida.iniciarPulso();
 
 if (state.user?.token) {
     try {

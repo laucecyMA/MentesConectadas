@@ -82,6 +82,8 @@ export const API_ENDPOINTS = {
     authLogin: '/Auth/login',
     authRegistro: '/Auth/registro',
     authPerfil: '/Auth/perfil',
+    authOlvide: '/Auth/olvide-contrasena',
+    authRestablecer: '/Auth/restablecer-contrasena',
 
 
   // ----- Actividad de los usuarios -----

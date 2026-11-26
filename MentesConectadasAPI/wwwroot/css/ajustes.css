@@ -88,7 +88,25 @@
 .public-neuro-card>.btn{align-self:flex-start;margin-top:auto}
 
 /* ----- Avisos de validación del registro  ----- */
-.field-error{display:flex;align-items:flex-start;gap:6px;margin-top:6px;padding:7px 11px;border-radius:10px;background:var(--tint-pink);border:1px solid var(--bad);border-left-width:4px;color:var(--bad);font-size:12px;font-weight:600;line-height:1.4;text-align:left}
+.field-error{display:flex;align-items:flex-start;gap:6px;margin-top:6px;padding:7px 11px;border-radius:10px;background:var(--tint-pink,transparent);border:1px solid var(--bad,currentColor);border-left-width:4px;color:var(--bad,inherit);font-size:12px;font-weight:600;line-height:1.4;text-align:left}
 .field-error[hidden]{display:none}
-.field-error::before{content:"!";flex:0 0 auto;width:16px;height:16px;border-radius:50%;background:var(--bad);color:var(--surface);font-size:11px;font-weight:800;display:grid;place-items:center;margin-top:1px}
-.field input.is-invalid,.field select.is-invalid{border-color:var(--bad)!important;box-shadow:0 0 0 3px color-mix(in srgb,var(--bad) 18%,transparent)}
+.field-error::before{content:"!";flex:0 0 auto;width:16px;height:16px;border-radius:50%;background:var(--bad,currentColor);color:var(--surface,#fff);font-size:11px;font-weight:800;display:grid;place-items:center;margin-top:1px}
+.field input.is-invalid,.field select.is-invalid,.field textarea.is-invalid{border-color:var(--bad,currentColor)!important;box-shadow:0 0 0 3px color-mix(in srgb,var(--bad,currentColor) 18%,transparent)}
+
+/* ----- Enlace Contraseña olvidada del inicio de sesión ----- */
+.link-olvide{justify-self:end;background:none;border:0;padding:0;margin-top:-4px;font-size:12px;font-weight:700;color:var(--purple2);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.link-olvide:hover{color:var(--text)}
+.link-olvide:focus-visible{outline:2px solid var(--purple);outline-offset:3px;border-radius:4px}
+
+/* ----- Paginado de guías y autoevaluaciones ----- */
+.pager{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px;margin:26px 0 8px}
+.pager-pages{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.pager-num{min-width:38px;height:38px;padding:0 10px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--text);font-weight:700;font-size:13px;cursor:pointer}
+.pager-num:hover{border-color:var(--purple);color:var(--purple2)}
+.pager-num[aria-current="page"]{background:var(--purple);border-color:var(--purple);color:#171524;cursor:default}
+.pager-gap{color:var(--muted);align-self:center;padding:0 2px}
+.pager-info{flex-basis:100%;text-align:center;color:var(--muted);font-size:12px;margin-top:4px}
+.pager .btn[disabled]{opacity:.45;cursor:not-allowed}
+.guide-grid,.eval-grid{scroll-margin-top:90px}
+.eval-search{margin-top:22px}
+.eval-grid + #eval-pager .pager{margin-top:-30px;margin-bottom:48px}

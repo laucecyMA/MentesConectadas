@@ -18,6 +18,17 @@ namespace MentesConectadasAPI.Models
         public string? PasswordNueva { get; set; }
     }
 
+    public class OlvideContrasenaRequest
+    {
+        public string Correo { get; set; } = string.Empty;
+    }
+
+    public class RestablecerContrasenaRequest
+    {
+        public string Token { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
+    }
+
     public class UsuarioCuenta
     {
         public int IdUsuario { get; set; }

@@ -7,7 +7,7 @@ import { adminHome, adminGuides, adminGuideForm, adminEvaluations, adminEvalEdit
 import { setRenderer } from './navigation.js';
 import { applyTheme, currentTheme } from './theme.js';
 import { landing, aboutUs, publicInfo, dashboard } from './pages.js';
-import { login, registro } from './auth.js';
+import { login, registro, olvide, restablecer } from './auth.js';
 import { neuroList, neuroDetail } from './neuro.js';
 import { guideList } from './guides.js';
 import { evaluationLanding, evaluationView, evaluationResult } from './evaluations.js';
@@ -28,6 +28,7 @@ const VIEWS = {
   'sobre-nosotros': aboutUs,
   login,
   registro,
+  olvide,
   dashboard,
   neurodivergencias: neuroList,
   guias: () => guideList(false),
@@ -48,6 +49,7 @@ const VIEWS = {
 export function render(){
   syncDocLang();
   const app = document.getElementById('app');
+  if(state.user&&['login','registro','olvide'].includes(state.route)){state.route=isAdmin(state.user)?'admin':'dashboard';location.hash=state.route;}
   if((PROTECTED_ROUTES.includes(state.route)||state.route.startsWith('evaluacion:')||state.route.startsWith('resultado:'))&&!state.user){state.route='login';location.hash='login';}
   
   if(isAdminRoute(state.route)&&!isAdmin(state.user)){state.route=state.user?'dashboard':'login';location.hash=state.route;}
@@ -60,7 +62,8 @@ export function render(){
   if(state.route.startsWith('evaluacion:')){const gid=state.route.split(':')[1];if(state.evalGuideId!==gid){state.evalGuideId=gid;state.evalIndex=0;state.evalAnswers=[];state.evalScore=0;}app.innerHTML=evaluationView();return;}
   if(state.route.startsWith('resultado:')){if(state.evalGuideId!==state.route.split(':')[1]){state.route='evaluacion';location.hash='evaluacion';}else{app.innerHTML=evaluationResult();return;}}
   if(state.route.startsWith('neurodetalle:')){app.innerHTML=neuroDetail();return;}
-  app.innerHTML=(VIEWS[state.route]||landing)();
+  const vista=state.route.startsWith('restablecer:')?restablecer:(VIEWS[state.route]||landing);
+  app.innerHTML=vista();
   cargarDatosAdmin(state.route); 
   applyTheme(currentTheme()); 
 }

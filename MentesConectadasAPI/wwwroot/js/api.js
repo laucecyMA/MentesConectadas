@@ -46,6 +46,27 @@ export const apiLogin = (correo, password) => apiAcceso(API_ENDPOINTS.authLogin,
 export const apiRegistro = (nombreCompleto, correo, password, tipoUsuario) =>
     apiAcceso(API_ENDPOINTS.authRegistro, { nombreCompleto, correo, password, tipoUsuario });
 
+// ----- RECUPERAR CONTRASEÑA -----
+async function apiPublico(path, body) {
+    let response;
+    try {
+        response = await fetch(API_BASE_URL + path, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+        });
+    } catch (e) {
+        throw new Error(MSG_SIN_API);
+    }
+    const data = await response.json().catch(() => ({}));
+    if (response.status === 429) throw new Error('Hiciste demasiados intentos. Espera unos minutos e inténtalo de nuevo.');
+    if (!response.ok || data.isSuccess === false) throw new Error(data.respuesta || 'La API no pudo completar la solicitud.');
+    return data.respuesta || '';
+}
+
+export const apiOlvideContrasena = (correo) => apiPublico(API_ENDPOINTS.authOlvide, { correo });
+export const apiRestablecerContrasena = (token, password) => apiPublico(API_ENDPOINTS.authRestablecer, { token, password });
+
 
 // ----- ACTIVIDAD DE LOS USUARIOS - BASE DE DATOS -----
 export function apiGuardarVista(token, idGuia) {
